@@ -1,0 +1,127 @@
+<div style="width:100%; height: 500px;">
+    <as-split direction="vertical">
+        <as-split-area [size]="50">
+
+
+            <as-split (dragEnd)="topDragEnd($event)" direction="horizontal">
+                <as-split-area [size]="70">
+                    <p>TOP-LEFT</p>
+                    <div class="d-flex justify-content-between">
+                        <select (change)="changeSort($event)">
+                            <option [value]="item" *ngFor="let item of shortColumns">{{item | uppercase}}</option>
+                        </select>
+
+
+                        <button mat-button color="success" [matMenuTriggerFor]="menu">Settings</button>
+                        <mat-menu #menu="matMenu">
+                            <div *ngFor="let item of shortColumns" mat-menu-item
+                                (click)="cb.toggle();$event.stopPropagation();changeColumn(item,cb) "
+                                (keydown.enter)="$event.stopPropagation(); cb.toggle();">
+                                <mat-checkbox color="primary" (change)="changeColumn(item,$event)"
+                                    (click)="$event.stopPropagation()" #cb>
+                                    {{item |uppercase}}</mat-checkbox>
+                            </div>
+
+                        </mat-menu>
+                    </div>
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="kontrat">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> KONTRACT </th>
+                            <td mat-cell *matCellDef="let element"> {{element.kontrat}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="teklif">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> TEKLIF </th>
+                            <td mat-cell *matCellDef="let element"> {{element.teklif}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="data">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DATA </th>
+                            <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </as-split-area>
+                <as-split-area [size]="30">
+                    <p>TOP-RIGHT</p>
+                    <span>Ayarlar</span><br>
+                    Üst Dikey Pencere Değerleri <br>
+                    {{topSizes[0]}} - {{topSizes[1]}} <br>
+                    Alt Dikey Pencere Değerleri <br>
+                    {{bottomSizes[0]}} - {{bottomSizes[1]}} <br>
+                </as-split-area>
+            </as-split>
+        </as-split-area>
+        <as-split-area [size]="50">
+
+
+            <as-split (dragEnd)="bottomDragEnd($event)" direction="horizontal">
+                <as-split-area [size]="40">
+                    <p>BOTTOM-LEFT</p>
+
+                    <table mat-table [dataSource]="dataSourceOline" matSort class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                            <td mat-cell *matCellDef="let element">
+                                <input *ngIf="element.edit" [(ngModel)]="element.id">
+                                <span *ngIf="!element.edit"> {{element.id}} </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="kontrat">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> KONTRAT </th>
+                            <td mat-cell *matCellDef="let element">
+                                <input *ngIf="element.edit" [(ngModel)]="element.kontrat">
+                                <span *ngIf="!element.edit"> {{element.kontrat}} </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="teklif">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> TEKLIF </th>
+                            <td mat-cell *matCellDef="let element">
+                                <input *ngIf="element.edit" [(ngModel)]="element.teklif">
+                                <span *ngIf="!element.edit"> {{element.teklif}} </span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="data">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> DATA </th>
+                            <td mat-cell *matCellDef="let element">
+                                <input *ngIf="element.edit" [(ngModel)]="element.data">
+                                <span *ngIf="!element.edit"> {{element.data}} </span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button color="primary" *ngIf="element.edit"
+                                    (click)="saveRow(element)">Kaydet </button>
+                                <button mat-raised-button color="primary" *ngIf="!element.edit"
+                                    (click)="removeRow(element)">Sil </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsBottom"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsBottom;"></tr>
+                    </table>
+                    <button mat-raised-button color="primary" (click)="addNewRow()">Yeni Ekle</button>
+                </as-split-area>
+                <as-split-area [size]="60">
+                    <p>BOTTOM-RIGHT</p>
+                    **Lorem Ipsum**
+                </as-split-area>
+            </as-split>
+        </as-split-area>
+    </as-split>
+
+
+</div>

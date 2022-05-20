@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+}
+
+.mat-menu__checkbox {
+    height: 100%;
+
+    &::ng-deep .mat-checkbox-layout {
+        height: 100%;
+        width: 100%;
+
+        &::ng-deep .mat-checkbox-label {
+            margin: auto;
+            vertical-align: middle;
+            position: relative;
+        }
+    }
+}
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}
+
+.mat-raised-button {
+    background: #007bff;
+    color: #fff;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #007bff !important;
+}
