@@ -1,11 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
-import { FormControl } from '@angular/forms';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SplitAreaDirective } from 'angular-split';
 import { DataModel, EditDataModel } from 'src/app/models/data.model';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { KontratService } from 'src/app/services/kontrat.service';
 export const MY_DATA: DataModel[] = [
   {
